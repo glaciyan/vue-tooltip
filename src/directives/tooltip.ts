@@ -50,22 +50,26 @@ export default (app: App<Element>, options: TooltipOptions) => {
         opacity: "1",
       });
 
-      const arrowData = middlewareData.arrow;
+      if (arrowElement !== null) {
+        const arrowData = middlewareData.arrow;
 
-      const staticSide = {
-        top: "bottom",
-        right: "left",
-        bottom: "top",
-        left: "right",
-      }[placement.split("-")[0]]!;
+        const staticSide = {
+          top: "bottom",
+          right: "left",
+          bottom: "top",
+          left: "right",
+        }[placement.split("-")[0]]!;
 
-      Object.assign(arrowElement!.style, {
-        left: arrowData?.x != null ? `${arrowData.x}px` : "",
-        top: arrowData?.y != null ? `${arrowData.y}px` : "",
-        right: "",
-        bottom: "",
-        [staticSide]: "-4px",
-      });
+        Object.assign(arrowElement!.style, {
+          left: arrowData?.x != null ? `${arrowData.x}px` : "",
+          top: arrowData?.y != null ? `${arrowData.y}px` : "",
+          right: "",
+          bottom: "",
+          [staticSide]: "-4px",
+        });
+      } else if (options.tooltipArrowId) {
+        console.warn("Tooltip Directive: Arrow id is defined but that id wasn't found");
+      }
     });
   };
 
